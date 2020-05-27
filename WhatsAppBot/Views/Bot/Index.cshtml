@@ -1,5 +1,49 @@
 ﻿
-<form asp-controller="Bot" asp-action="EnviarMensagem">
+<form id="formEnviarMensagem" enctype="multipart/form-data">
     <input type="text" name="mensagem" id="mensagem" />
     <button type="submit">Enviar Mensagem</button>
 </form>
+
+<form id="formEscutarEResponder" enctype="multipart/form-data">
+    <input type="text" name="nomeContato" id="nomeContato" />
+    <button type="submit"> Procurar contato</button>
+</form>
+
+
+@section Scripts
+{
+    
+    <script>
+    $('#formEnviarMensagem').submit(function(e){        
+       e.preventDefault();
+        
+        let url = '/Bot/EnviarMensagem';
+        let method = 'POST';
+        let form = $('#formEnviarMensagem');
+        let formData = new FormData(form[0]);
+        let async = false;
+        let request = new XMLHttpRequest();
+        
+        request.open(method, url, async);
+        request.send(formData);
+        
+    });
+    
+        $('#formEscutarEResponder').submit(function(e){        
+           e.preventDefault();
+            
+            let url = '/Bot/ProcurarContato';
+            let method = 'POST';
+            let form = $('#formEscutarEResponder');
+            let formData = new FormData(form[0]);
+            let async = true;
+            let request = new XMLHttpRequest();
+            
+            request.open(method, url, async);
+            request.send(formData);
+            
+        });
+    
+    </script>
+    
+}
